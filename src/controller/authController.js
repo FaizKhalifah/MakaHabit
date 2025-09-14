@@ -30,5 +30,7 @@ async function getLoginPage(req, res) {
 
 export default {
     register,
-    login
+    login,
+    getRegisterPage,
+    getLoginPage
 }
