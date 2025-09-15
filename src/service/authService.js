@@ -1,5 +1,5 @@
 import userRepositories from "../repositories/userRepositories.js";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 
 async function registerUser(userData) {
 
