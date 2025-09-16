@@ -7,7 +7,11 @@ async function getRegisterPage(req, res) {
 async function register(req, res) {
     try {
         const userData = req.body;
-        const newUser = await authService.registerUser(userData);
+        console.log("Data user yang diterima:", userData);
+        const {user,token} = await authService.registerUser(userData);
+        req.session.user = user;
+        req.session.token = token;
+        console.log("Session setelah login:", req.session);
         res.redirect('/');
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -17,7 +21,11 @@ async function register(req, res) {
 async function login(req, res) {
     try {
         const { username, password } = req.body;
-        const user = await authService.loginUser(username, password);
+        console.log("Data user yang diterima:", username, password);
+        const {user,token} = await authService.loginUser(username, password);
+        req.session.user = user;
+        req.session.token = token;
+        console.log("Session setelah login:", req.session);
         res.redirect('/');
     } catch (error) {
         res.status(400).json({ error: error.message });

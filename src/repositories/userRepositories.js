@@ -13,6 +13,10 @@ async function getUserById(userId) {
     return await User.findById(userId);
 }
 
+async function findByUsername(username) {
+    return User.findOne({ username });
+}
+
 async function updateUser(userId, updateData) {
     return await User.findByIdAndUpdate(userId, updateData, { new: true });
 }   
@@ -25,6 +29,7 @@ export default{
     createUser,
     getAllUsers,
     getUserById,
+    findByUsername,
     updateUser,
     deleteUser
 }
