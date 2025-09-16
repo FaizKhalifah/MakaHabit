@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Habit Tracker</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <h1>Habit Tracker</h1>
+      <ul>
+        <% if (typeof user !== "undefined") { %>
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/auth/logout">Logout</a></li>
+        <% } else { %>
+          <li><a href="/auth/login">Login</a></li>
+          <li><a href="/auth/register">Register</a></li>
+        <% } %>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <%- body %>
+  </main>
+
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> Habit Tracker</p>
+  </footer>
+</body>
+</html>
