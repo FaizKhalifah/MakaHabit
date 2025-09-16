@@ -10,6 +10,8 @@ const habitSchema = new mongoose.Schema({
         enum: ["daily", "weekly", "monthly"], 
         default: "daily" 
     },
+    startDate: { type: Date, default: Date.now },
+    isActive: { type: Boolean, default: true },
     createdAt: { type: Date, default: Date.now }
 })
 
