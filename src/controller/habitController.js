@@ -10,6 +10,10 @@ async function index(req, res) {
     }
 }
 
+async function getCreatePage(req, res) {
+    res.render('habits/create');
+}
+
 async function createHabit(req, res) {
     try {
         const userId = req.session.user.id;
@@ -19,6 +23,11 @@ async function createHabit(req, res) {
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
+}
+
+async function getEditPage(req, res) {
+    const habitId = req.params.id;
+    res.render('habits/edit', { habitId });
 }
 
 async function updateHabit(req, res) {
@@ -60,5 +69,7 @@ export default {
     createHabit,
     updateHabit,
     deleteHabit,
+    getCreatePage,
+    getEditPage,
     archiveHabit
 }
