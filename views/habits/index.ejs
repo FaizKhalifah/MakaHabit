@@ -1,15 +1,15 @@
 <% layout('../views/layouts/main') %>
-
+<link rel="stylesheet" href="/css/habit.css">
 <section class="habit-list">
   <h2>My Habits</h2>
 
-  <a href="/habits/new" class="btn btn-primary">+ Add Habit</a>
+  <a href="/habits/create" class="btn btn-primary">+ Add Habit</a>
 
   <ul>
     <% habits.forEach(habit => { %>
       <li class="habit-item">
         <div>
-          <strong><%= habit.name %></strong> 
+          <strong><%= habit.title %></strong> 
           (<%= habit.frequency %>)
         </div>
         <div class="actions">

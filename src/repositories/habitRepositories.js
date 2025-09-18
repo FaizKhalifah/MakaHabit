@@ -6,7 +6,10 @@ async function createHabit(habitData) {
 }
 
 async function getHabitsByUser(userId) {
-    return await Habit.find({ user: userId });
+    console.log("userId di repo:", userId);
+    const habits = await Habit.find({ user: userId });
+    console.log("users di repo:", habits);
+    return habits;
 }
 
 async function getHabitById(habitId) {
