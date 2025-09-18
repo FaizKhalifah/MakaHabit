@@ -1,0 +1,30 @@
+<% layout('../views/layouts/main') %>
+
+<section class="habit-list">
+  <h2>My Habits</h2>
+
+  <a href="/habits/new" class="btn btn-primary">+ Add Habit</a>
+
+  <ul>
+    <% habits.forEach(habit => { %>
+      <li class="habit-item">
+        <div>
+          <strong><%= habit.name %></strong> 
+          (<%= habit.frequency %>)
+        </div>
+        <div class="actions">
+          <a href="/habits/<%= habit._id %>" class="btn btn-sm">View</a>
+
+          <form method="POST" action="/habits/<%= habit._id %>/log" style="display:inline;">
+            <button type="submit" class="btn btn-sm btn-success">✅ Done Today</button>
+          </form>
+
+          <a href="/habits/<%= habit._id %>/edit" class="btn btn-sm">Edit</a>
+          <form method="POST" action="/habits/<%= habit._id %>/delete" style="display:inline;">
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+          </form>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+</section>
