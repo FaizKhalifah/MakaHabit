@@ -2,8 +2,13 @@ import habitService from "../service/habitService.js";
 
 async function index(req, res) {
     try {
-        const userId = req.session.user.id;
+        const userId = req.session.user._id;
+        console.log("req : ", req)
+        console.log("session : ",req.session)
+        console.log("session user : ",req.session.user)
+        console.log("userId di controller:", userId);
         const habits = await habitService.getHabitsByUser(userId);
+        console.log("habits:", habits);
         res.render('habits/index', { habits });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -16,8 +21,10 @@ async function getCreatePage(req, res) {
 
 async function createHabit(req, res) {
     try {
+
         const userId = req.session.user.id;
         const habitData = req.body;
+        console.log("habit data:", habitData);
         const habit = await habitService.createHabit(userId, habitData);
         res.redirect('/habits');
     } catch (error) {

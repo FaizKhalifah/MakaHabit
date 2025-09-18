@@ -1,0 +1,39 @@
+.habit-list ul, .habit-detail ul {
+  list-style: none;
+  padding: 0;
+}
+
+.habit-item {
+  background: #f9f9f9;
+  margin: 0.5em 0;
+  padding: 1em;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 0.3em 0.8em;
+  margin: 0 0.2em;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-primary { background: #007bff; color: white; }
+.btn-success { background: #28a745; color: white; }
+.btn-danger { background: #dc3545; color: white; }
+.btn-sm { font-size: 0.8em; }
+
+.progress-bar {
+  background: #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 16px;
+  margin: 0.5em 0;
+}
+
+.progress {
+  background: #28a745;
+  height: 100%;
+}

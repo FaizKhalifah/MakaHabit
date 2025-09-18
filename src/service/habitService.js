@@ -2,13 +2,13 @@ import { name } from "ejs";
 import habitRepositories from "../repositories/habitRepositories.js";
 
 async function createHabit(userId, data) {
-    if(!data.name || !data.frequency) {
-        throw new Error("Habit name and frequency are required");
+    if(!data.title || !data.frequency) {
+        throw new Error("Habit title and frequency are required");
     }
 
     const habitData = {
-        userId,
-        name: data.name,
+        user:userId,
+        title: data.title,
         description: data.description || "",
         frequency: data.frequency,
         startDate: data.startDate || Date.now(),
@@ -49,6 +49,7 @@ async function deleteHabit(userId, habitId) {
 }
 
 async function getHabitsByUser(userId) {
+    console.log("userId di service:", userId);
   const habits = await habitRepositories.getHabitsByUser(userId);
   return habits;
 }

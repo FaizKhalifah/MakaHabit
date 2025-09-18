@@ -19,6 +19,7 @@ app.use(session({
   secret: 'rahasia-anda',
   resave: false,
   saveUninitialized: false,
+  cookie: { secure: false }
 }));
 
 // set up view
