@@ -6,9 +6,9 @@ const habitRouter = express.Router();
 
 habitRouter.get('/', authMiddleware.isAuthenticated, habitController.index);
 habitRouter.get('/create', authMiddleware.isAuthenticated, habitController.getCreatePage);
-habitRouter.get('/edit/:id', authMiddleware.isAuthenticated, habitController.getEditPage);
 habitRouter.post('/create', authMiddleware.isAuthenticated, habitController.createHabit);
-habitRouter.post('/update/:id', authMiddleware.isAuthenticated, habitController.updateHabit);
+habitRouter.get('/edit/:id', authMiddleware.isAuthenticated, habitController.getEditPage);
+habitRouter.post('/edit/:id', authMiddleware.isAuthenticated, habitController.updateHabit);
 habitRouter.post('/delete/:id', authMiddleware.isAuthenticated, habitController.deleteHabit);
 habitRouter.post('/archive/:id', authMiddleware.isAuthenticated, habitController.archiveHabit);
 

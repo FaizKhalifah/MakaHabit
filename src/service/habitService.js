@@ -26,7 +26,7 @@ async function updateHabit(userId, habitId, data) {
         throw new Error("Habit not found");
     }
 
-    if (habit.userId.toString() !== userId.toString()) {
+    if (habit.user._id.toString() !== userId.toString()) {
         throw new Error("Unauthorized to update this habit");
     }
 
@@ -54,6 +54,11 @@ async function getHabitsByUser(userId) {
   return habits;
 }
 
+async function getHabitbyId(habitId) {
+    const habit = await habitRepositories.getHabitById(habitId);
+    return habit;
+}
+
 async function archiveHabit(userId, habitId) {
   const habit = await habitRepositories.getHabitById(habitId);
 
@@ -74,5 +79,6 @@ export default {
     updateHabit,
     deleteHabit,
     getHabitsByUser,
+    getHabitbyId,
     archiveHabit
 }
