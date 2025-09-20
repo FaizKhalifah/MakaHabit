@@ -9,9 +9,9 @@ async function getLogsByHabit(habitId) {
     return await HabitLog.find({ habit: habitId }).sort({ date: -1 });
 }
 
-// async function getLogsByUser(userId) {
-//     return await HabitLog.find({ user: userId }).populate("habit").sort({ date: -1 });
-// }
+async function getLogsByUser(userId) {
+    return await HabitLog.find({ user: userId }).populate("habit").sort({ date: -1 });
+}
 
 async function getLogById(logId) {
     return await HabitLog.findById(logId).populate("habit");
@@ -29,6 +29,7 @@ export default {
     createLog,
     getLogsByHabit,
     getLogById,
+    getLogsByUser,
     updateLog,
     deleteLog
 };
