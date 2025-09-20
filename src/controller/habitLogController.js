@@ -11,9 +11,7 @@ async function createLog(req, res) {
     }
 }
 
-async function getHabitLogPage(req,res) {
-    res.render("habitLog/index");
-}
+
 
 async function getUserLogs(req, res) {
     try {
@@ -54,6 +52,21 @@ async function deleteLog(req, res) {
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
+}
+
+async function getHabitLogPage(req, res) {
+  try {
+    const habitId = req.params.id;
+    const { habit, weeks } = await habitLogService.getHabitLogCalendar(habitId);
+
+    res.render("habitLog/index", {
+      habit,
+      weeks
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
 }
 
 export default {
