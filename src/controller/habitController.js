@@ -11,6 +11,12 @@ async function index(req, res) {
     }
 }
 
+async function getDetailPage(req,res) {
+    const habitId = req.params.id;
+    const habit = await habitService.getHabitbyId(habitId);
+    res.render('habits/detail',{habit});
+}
+
 async function getCreatePage(req, res) {
     res.render('habits/create');
 }
@@ -71,6 +77,7 @@ async function archiveHabit(req, res) {
 
 export default {
     index,
+    getDetailPage,
     createHabit,
     updateHabit,
     deleteHabit,
