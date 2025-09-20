@@ -54,26 +54,24 @@ async function deleteLog(req, res) {
     }
 }
 
-async function getHabitLogPage(req, res) {
+async function getAllHabitLogsPage(req, res) {
   try {
-    const habitId = req.params.id;
-    const { habit, weeks } = await habitLogService.getHabitLogCalendar(habitId);
+    const userId = req.session.user._id; // ambil user dari session
+    const habitLogs = await habitLogService.getAllHabitLogsByUser(userId);
 
-    res.render("habitLog/index", {
-      habit,
-      weeks
-    });
+    res.render("habitLogs/index", { habitLogs });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
 }
 
+
 export default {
     createLog,
     getUserLogs,
     getHabitLogs,
-    getHabitLogPage,
+    getAllHabitLogsPage,
     updateLog,
     deleteLog
 };

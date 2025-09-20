@@ -1,0 +1,28 @@
+<% layout('../views/layouts/main') %>
+<link rel="stylesheet" href="/css/habitLog.css">
+
+<div class="container">
+  <h1>Habit Logs</h1>
+
+  <% habitLogs.forEach(log => { %>
+    <div class="habit-section">
+      <h2><%= log.habit.title %></h2>
+      <p><%= log.habit.description || '' %></p>
+
+      <div class="calendar">
+        <% log.weeks.forEach(week => { %>
+          <div class="week">
+            <% week.forEach(day => { %>
+              <div class="day 
+                <% if (day.status === 'done') { %> done <% } %>
+                <% if (day.status === 'missed') { %> missed <% } %>
+              " 
+                title="<%= day.date.toDateString() %> - <%= day.status || 'no data' %>">
+              </div>
+            <% }) %>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  <% }) %>
+</div>

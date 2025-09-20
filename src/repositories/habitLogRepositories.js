@@ -1,4 +1,4 @@
-import HabitLog from "../models/habitLog";
+import HabitLog from "../models/habitLog.js";
 
 async function createLog(logData) {
     const log = new HabitLog(logData);
@@ -6,7 +6,7 @@ async function createLog(logData) {
 }
 
 async function getLogsByHabit(habitId) {
-    return await HabitLog.find({ habit: habitId }).sort({ date: -1 });
+    return await HabitLog.find({ habit: habitId }).lean();
 }
 
 async function getLogsByUser(userId) {

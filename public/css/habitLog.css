@@ -1,0 +1,43 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.calendar {
+  display: flex;
+  gap: 4px;
+  margin-top: 20px;
+}
+
+.week {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.day {
+  width: 14px;
+  height: 14px;
+  background: #ebedf0; /* default grey */
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+
+.day.done {
+  background: #216e39; /* green */
+}
+
+.day.missed {
+  background: #eb5a46; /* red */
+}
+
+.day:hover {
+  outline: 2px solid #333;
+  cursor: pointer;
+}

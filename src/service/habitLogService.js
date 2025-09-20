@@ -42,28 +42,31 @@ async function getLog(logId) {
     return await habitLogRepositories.getLogById(logId);
 }
 
-async function getHabitLogCalendar(habitId) {
-  // cari habitnya
-  const habit = await habitRepositories.getHabitById(habitId);
-  if (!habit) throw new Error("Habit not found");
+async function getAllHabitLogsByUser(userId) {
+  // ambil semua habit user ini
+  const habits = await habitRepositories.getHabitsByUser(userId);
 
-  // ambil semua log habit
-  const logs = await habitLogRepositories.getLogsByHabit(habitId);
+  const results = [];
 
-  // range tanggal: mulai dari startDate habit sampai hari ini
-  const startDate = new Date(habit.startDate);
-  const endDate = new Date();
+  for (const habit of habits) {
+    const logs = await habitLogRepositories.getLogsByHabit(habit._id);
 
-  const weeks = generateWeeks(startDate, endDate, logs);
+    // generate struktur mingguan seperti kotak GitHub
+    const startDate = new Date(habit.startDate);
+    const endDate = new Date();
+    const weeks = generateWeeks(startDate, endDate, logs);
 
-  return { habit, weeks };
+    results.push({ habit, weeks });
+  }
+
+  return results;
 }
 
 export default {
     addLog,
     getUserLogs,
     getHabitLogs,
-    getHabitLogCalendar,
+    getAllHabitLogsByUser,
     updateLog,
     deleteLog,
     getLog
