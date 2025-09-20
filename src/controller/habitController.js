@@ -17,9 +17,10 @@ async function getCreatePage(req, res) {
 
 async function createHabit(req, res) {
     try {
-
-        const userId = req.session.user.id;
+        console.log("req session : ", req.session.user);
+        const userId = req.session.user._id;
         const habitData = req.body;
+        console.log("user id", userId)
         console.log("habit data:", habitData);
         const habit = await habitService.createHabit(userId, habitData);
         res.redirect('/habits');

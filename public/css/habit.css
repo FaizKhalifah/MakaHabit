@@ -3,13 +3,48 @@
   padding: 0;
 }
 
+.habit-list{
+  border: 0.7px solid gray;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0.1rem 0.5rem 2rem gray;
+}
+
+.habit-list h2{
+  text-align: center;
+  margin: 1rem;
+}
+
 .habit-item {
   background: #f9f9f9;
-  margin: 0.5em 0;
-  padding: 1em;
-  border-radius: 8px;
+  margin: 1.5rem 0;
+  padding: 1.5rem;
   display: flex;
   justify-content: space-between;
+  align-items: stretch;
+  border: 0.7px solid gray;
+  border-radius: 0.3rem;
+}
+
+.habit-info{
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.habit-title{
+  color: #04724D;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.habit-description{
+  color: #56876D;
+  font-size: 1rem;
+}
+
+.habit-frequency{
+  color: gray;
 }
 
 .btn {
@@ -23,7 +58,9 @@
 .btn-primary { background: #007bff; color: white; }
 .btn-success { background: #28a745; color: white; }
 .btn-danger { background: #dc3545; color: white; }
-.btn-sm { font-size: 0.8em; }
+.btn-edit{ background: #fbff00;color: white;}
+.btn-view {background: #007bff; color: white;}
+.btn-sm {font-size: 0.8em; }
 
 .progress-bar {
   background: #ddd;
@@ -33,7 +70,20 @@
   margin: 0.5em 0;
 }
 
+.actions{
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  gap: 0.8rem;
+  text-align: center;
+}
+
 .progress {
   background: #28a745;
   height: 100%;
+}
+
+.habbit-btn{
+  width: 100%;
 }
