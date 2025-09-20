@@ -1,0 +1,30 @@
+<% layout('../views/layouts/main') %>
+<link rel="stylesheet" href="/css/habit.css">
+
+<section class="habit-detail">
+  <h2><%= habit.title %></h2>
+
+  <div class="habit-info">
+    <p><strong>Description:</strong> <%= habit.description || 'No description' %></p>
+    <p><strong>Frequency:</strong> <%= habit.frequency %></p>
+    <p><strong>Start Date:</strong> <%= habit.startDate.toDateString() %></p>
+    <p><strong>Status:</strong> <%= habit.isActive ? 'Active' : 'Archived' %></p>
+  </div>
+
+  <div class="habit-actions">
+    <a href="/habits/edit/<%= habit._id %>" class="btn btn-warning">Edit</a>
+
+    <% if (habit.isActive) { %>
+      <form action="/habits/archive/<%= habit._id %>" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-secondary">Archive</button>
+      </form>
+    <% } %>
+
+    <form action="/habits/delete/<%= habit._id %>" method="POST" style="display:inline;" 
+          onsubmit="return confirm('Are you sure you want to delete this habit?');">
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+
+    <a href="/habits" class="btn btn-light">Back</a>
+  </div>
+</section>

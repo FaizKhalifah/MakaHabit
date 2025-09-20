@@ -11,15 +11,22 @@ async function index(req, res) {
     }
 }
 
+async function getDetailPage(req,res) {
+    const habitId = req.params.id;
+    const habit = await habitService.getHabitbyId(habitId);
+    res.render('habits/detail',{habit});
+}
+
 async function getCreatePage(req, res) {
     res.render('habits/create');
 }
 
 async function createHabit(req, res) {
     try {
-
-        const userId = req.session.user.id;
+        console.log("req session : ", req.session.user);
+        const userId = req.session.user._id;
         const habitData = req.body;
+        console.log("user id", userId)
         console.log("habit data:", habitData);
         const habit = await habitService.createHabit(userId, habitData);
         res.redirect('/habits');
@@ -70,6 +77,7 @@ async function archiveHabit(req, res) {
 
 export default {
     index,
+    getDetailPage,
     createHabit,
     updateHabit,
     deleteHabit,

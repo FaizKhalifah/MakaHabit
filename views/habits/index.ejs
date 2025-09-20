@@ -8,20 +8,21 @@
   <ul>
     <% habits.forEach(habit => { %>
       <li class="habit-item">
-        <div>
-          <strong><%= habit.title %></strong> 
-          (<%= habit.frequency %>)
+        <div class="habit-info">
+          <p class="habit-title"><%= habit.title %></p> 
+          <p class="habit-description"><%= habit.description %></p>
+          <p class="habit-frequency"><%= habit.frequency %></p>
         </div>
         <div class="actions">
-          <a href="/habits/<%= habit._id %>" class="btn btn-sm">View</a>
+          <a href="/habits/<%= habit._id %>" class="btn btn-sm habbit-btn btn-view">View</a>
 
           <form method="POST" action="/habits/<%= habit._id %>/log" style="display:inline;">
-            <button type="submit" class="btn btn-sm btn-success">✅ Done Today</button>
+            <button type="submit" class="btn btn-sm btn-success habbit-btn">✅ Done Today</button>
           </form>
 
-          <a href="/habits/edit/<%= habit._id %>/" class="btn btn-sm">Edit</a>
+          <a href="/habits/edit/<%= habit._id %>/" class="btn btn-sm btn-edit">Edit</a>
           <form method="POST" action="/habits/<%= habit._id %>/delete" style="display:inline;">
-            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            <button type="submit" class="btn btn-sm btn-danger habbit-btn">Delete</button>
           </form>
         </div>
       </li>
