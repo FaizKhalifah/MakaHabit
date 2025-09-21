@@ -7,6 +7,7 @@ async function getDashboard(req, res) {
     const todayStats = await dashboardService.getTodayStats(userId);
     const weekStats = await dashboardService.getWeekStats(userId);
     const habitLogs = await dashboardService.getYearlyHeatmap(userId);
+    console.log("user req, ", req.session.user);
 
     res.render("dashboard", {
       user: req.session.user,

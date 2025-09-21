@@ -5,7 +5,7 @@ async function getLogsByHabit(habitId) {
 }
 
 async function getLogsByUser(userId) {
-    return await HabitLog.find({ user: userId }).populate("habit").sort({ date: -1 });
+    return await HabitLog.find({ user: userId }).lean();
 }
 
 

@@ -1,0 +1,62 @@
+<% layout('../views/layouts/main') %>
+<link rel="stylesheet" href="/css/dashboard.css">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <div class="dashboard-container">
+
+    <!-- Greeting -->
+    <header class="dashboard-header">
+      <h1>Hi <%= user.username %> 👋</h1>
+      <p>Here’s your habit progress overview</p>
+    </header>
+
+    <!-- Summary Cards -->
+    <section class="summary-cards">
+      <div class="card">
+        <h2>Today</h2>
+        <p><%= todayStats.done %> / <%= todayStats.total %> habits done</p>
+      </div>
+      <div class="card">
+        <h2>Current Streak</h2>
+        <p><%= todayStats.streak %> days 🔥</p>
+      </div>
+      <div class="card">
+        <h2>Total Habits</h2>
+        <p><%= todayStats.habitCount %> active</p>
+      </div>
+    </section>
+
+    <!-- Weekly Overview -->
+    <section class="weekly-overview">
+      <h2>Weekly Progress</h2>
+      <div class="week-bars">
+        <% weekStats.forEach(day => { %>
+          <div class="day-bar">
+            <span class="bar" style="height: <%= ((day.done / day.total) * 100).toFixed(0) %>%"></span>
+            <span class="label"><%= day.label %></span>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- Yearly Heatmap -->
+    <section class="yearly-heatmap">
+      <h2>Your Year in Habits</h2>
+      <div class="heatmap">
+        <% habitLogs.forEach(week => { %>
+          <div class="week">
+            <% week.forEach(day => { %>
+              <div class="day <%= day.status %>" title="<%= day.date.toDateString() %> - <%= day.status %>"></div>
+            <% }) %>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="actions">
+      <a href="/habits/create" class="btn">+ Add New Habit</a>
+      <a href="/habits" class="btn">View All Habits</a>
+    </section>
+
+  </div>

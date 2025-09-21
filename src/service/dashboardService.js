@@ -59,20 +59,14 @@ async function getWeekStats(userId) {
 
 // Heatmap 1 tahun
 async function getYearlyHeatmap(userId) {
-  const habits = await habitRepositories.getHabitsByUser(userId);
-  const results = [];
+  const startDate = new Date(new Date().getFullYear(), 0, 1); // awal tahun
+  const endDate = new Date(new Date().getFullYear(), 11, 31); // akhir tahun
 
-  const endDate = new Date();
-  const startDate = new Date();
-  startDate.setFullYear(endDate.getFullYear() - 1);
+  // ambil log dari DB
+  const logs = await habitLogRepositories.getLogsByUser();
 
-  for (const habit of habits) {
-    const logs = await habitLogRepositories.getLogsByHabit(habit._id);
-    const weeks = generateWeeks(startDate, endDate, logs);
-    results.push(weeks);
-  }
-
-  return results;
+  // pastikan logs berisi {date, status}
+  return generateWeeks(startDate, endDate, logs);
 }
 
 export default {
