@@ -16,7 +16,7 @@
         <div class="actions">
           <a href="/habits/<%= habit._id %>" class="btn btn-sm habbit-btn btn-view">View</a>
 
-          <form method="POST" action="/habits/<%= habit._id %>/log" style="display:inline;">
+          <form method="POST" action="/habitLogs/<%= habit._id %>/done" style="display:inline;">
             <button type="submit" class="btn btn-sm btn-success habbit-btn">✅ Done Today</button>
           </form>
 
