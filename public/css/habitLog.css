@@ -34,7 +34,7 @@ h1 {
 }
 
 .day.missed {
-  background: #eb5a46; /* red */
+  /* background: #eb5a46;  */
 }
 
 .day:hover {

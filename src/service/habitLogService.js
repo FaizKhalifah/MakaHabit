@@ -20,13 +20,14 @@ async function getAllHabitLogsByUser(userId) {
   const habits = await habitRepositories.getHabitsByUser(userId);
 
   const results = [];
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setFullYear(endDate.getFullYear() - 1); // 1 tahun ke belakang
 
   for (const habit of habits) {
     const logs = await habitLogRepositories.getLogsByHabit(habit._id);
 
-    // generate struktur mingguan seperti kotak GitHub
-    const startDate = new Date(habit.startDate);
-    const endDate = new Date();
+    // generate struktur mingguan 1 tahun penuh
     const weeks = generateWeeks(startDate, endDate, logs);
 
     results.push({ habit, weeks });
@@ -34,6 +35,7 @@ async function getAllHabitLogsByUser(userId) {
 
   return results;
 }
+
 
 async function markHabitDone(userId, habitId, date) {
   // buat atau update log untuk hari ini
