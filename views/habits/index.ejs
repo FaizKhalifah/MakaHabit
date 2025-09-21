@@ -21,7 +21,7 @@
           </form>
 
           <a href="/habits/edit/<%= habit._id %>/" class="btn btn-sm btn-edit">Edit</a>
-          <form method="POST" action="/habits/<%= habit._id %>/delete" style="display:inline;">
+          <form method="POST" action="/habits/delete/<%= habit._id %>" style="display:inline;">
             <button type="submit" class="btn btn-sm btn-danger habbit-btn">Delete</button>
           </form>
         </div>

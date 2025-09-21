@@ -35,12 +35,15 @@ async function updateHabit(userId, habitId, data) {
 }
 
 async function deleteHabit(userId, habitId) {
+    console.log("delete habit masuk ke service")
+    console.log("user id yang dikirim : ", userId);
     const habit = await habitRepositories.getHabitById(habitId);
     if (!habit) {
         throw new Error("Habit not found");
     }
-
-    if (habit.userId.toString() !== userId.toString()) {
+    console.log("habit ditemukan ", habit)
+    console.log("id user habit ",habit.user._id.toString())
+    if (habit.user._id.toString() !== userId.toString()) {
         throw new Error("Unauthorized to delete this habit");
     }
 

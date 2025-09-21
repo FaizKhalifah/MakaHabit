@@ -55,7 +55,7 @@ async function updateHabit(req, res) {
 
 async function deleteHabit(req, res) {
     try {
-        const userId = req.session.user.id;
+        const userId = req.session.user._id;
         const habitId = req.params.id;
         await habitService.deleteHabit(userId, habitId);
         res.redirect('/habits');
