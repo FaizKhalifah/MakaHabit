@@ -1,31 +1,49 @@
 <% layout('../views/layouts/main') %>
 <link rel="stylesheet" href="/css/habit.css">
+
 <section class="habit-list">
   <h2>My Habits</h2>
 
   <a href="/habits/create" class="btn btn-primary">+ Add Habit</a>
 
-  <ul>
+  <ul id="habitList">
     <% habits.forEach(habit => { %>
-      <li class="habit-item">
+      <li class="habit-item" data-id="<%= habit._id %>">
         <div class="habit-info">
           <p class="habit-title"><%= habit.title %></p> 
           <p class="habit-description"><%= habit.description %></p>
           <p class="habit-frequency"><%= habit.frequency %></p>
         </div>
         <div class="actions">
-          <a href="/habits/<%= habit._id %>" class="btn btn-sm habbit-btn btn-view">View</a>
+          <a href="/habits/<%= habit._id %>" class="btn btn-sm btn-view">View</a>
 
           <form method="POST" action="/habitLogs/<%= habit._id %>/done" style="display:inline;">
-            <button type="submit" class="btn btn-sm btn-success habbit-btn">✅ Done Today</button>
+            <button type="submit" class="btn btn-sm btn-success">✅ Done Today</button>
           </form>
 
           <a href="/habits/edit/<%= habit._id %>/" class="btn btn-sm btn-edit">Edit</a>
           <form method="POST" action="/habits/delete/<%= habit._id %>" style="display:inline;">
-            <button type="submit" class="btn btn-sm btn-danger habbit-btn">Delete</button>
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
           </form>
         </div>
       </li>
     <% }) %>
   </ul>
 </section>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script>
+  const el = document.getElementById('habitList');
+  Sortable.create(el, {
+    animation: 150,
+    onEnd: function (evt) {
+      const order = [...el.querySelectorAll('.habit-item')].map(li => li.dataset.id);
+      
+      fetch('/habits/reorder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ order })
+      });
+    }
+  });
+</script>

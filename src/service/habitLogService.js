@@ -25,6 +25,7 @@ async function getAllHabitLogsByUser(userId) {
   startDate.setFullYear(endDate.getFullYear() - 1); // 1 tahun ke belakang
 
   for (const habit of habits) {
+    // Mengambil log tiap habit
     const logs = await habitLogRepositories.getLogsByHabit(habit._id);
 
     // generate struktur mingguan 1 tahun penuh

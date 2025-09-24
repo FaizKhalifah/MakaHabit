@@ -1,5 +1,6 @@
 import { name } from "ejs";
 import habitRepositories from "../repositories/habitRepositories.js";
+import Habit from "../models/habit.js";
 
 async function createHabit(userId, data) {
     if(!data.title || !data.frequency) {
@@ -77,11 +78,24 @@ async function archiveHabit(userId, habitId) {
   return updatedHabit;
 }
 
+async function reorderHabits(userId, order) {
+  console.log("masuk ke reorder service");
+  for (let i = 0; i < order.length; i++) {
+    await Habit.updateOne(
+      { _id: order[i], user: userId },   // FIX di sini
+      { $set: { order: i } }
+    );
+  }
+}
+
+
+
 export default {
     createHabit,
     updateHabit,
     deleteHabit,
     getHabitsByUser,
     getHabitbyId,
-    archiveHabit
+    archiveHabit,
+    reorderHabits
 }
