@@ -87,3 +87,22 @@
 .habbit-btn{
   width: 100%;
 }
+
+textarea{
+  padding: 0.5rem;
+  width: 80rem;
+  height: 10rem;
+}
+
+select{
+  width: 15rem;
+  padding: 0.5rem 1rem;
+}
+
+.habit-item {
+  cursor: grab;        /* Saat mouse di atas item */
+}
+
+.habit-item:active {
+  cursor: grabbing;    /* Saat item sedang ditarik */
+}

@@ -7,6 +7,7 @@ const habitRouter = express.Router();
 habitRouter.get('/', authMiddleware.isAuthenticated, habitController.index);
 habitRouter.get('/create', authMiddleware.isAuthenticated, habitController.getCreatePage);
 habitRouter.post('/create', authMiddleware.isAuthenticated, habitController.createHabit);
+habitRouter.post('/reorder', authMiddleware.isAuthenticated, habitController.reorderHabits);
 habitRouter.get('/edit/:id', authMiddleware.isAuthenticated, habitController.getEditPage);
 habitRouter.post('/edit/:id', authMiddleware.isAuthenticated, habitController.updateHabit);
 habitRouter.post('/delete/:id', authMiddleware.isAuthenticated, habitController.deleteHabit);

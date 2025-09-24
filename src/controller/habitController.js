@@ -1,9 +1,10 @@
 import habitService from "../service/habitService.js";
+import Habit from "../models/habit.js";
 
 async function index(req, res) {
     try {
         const userId = req.session.user._id;
-        const habits = await habitService.getHabitsByUser(userId);
+        const habits = await Habit.find({ user: userId }).sort({ order: 1 });
         console.log("habits:", habits);
         res.render('habits/index', { habits });
     } catch (error) {
@@ -75,6 +76,22 @@ async function archiveHabit(req, res) {
     }
 }
 
+async function reorderHabits(req, res) {
+  try {
+    console.log("req di saat reorder ", req)
+    const userId = req.session.user._id;
+    const { order } = req.body; // array of habit IDs in new order
+
+    await habitService.reorderHabits(userId, order);
+
+    res.status(200).json({ message: "Habits reordered successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
 export default {
     index,
     getDetailPage,
@@ -83,5 +100,6 @@ export default {
     deleteHabit,
     getCreatePage,
     getEditPage,
-    archiveHabit
+    archiveHabit,
+    reorderHabits
 }
