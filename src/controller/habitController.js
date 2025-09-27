@@ -1,10 +1,9 @@
 import habitService from "../service/habitService.js";
-import Habit from "../models/habit.js";
 
 async function index(req, res) {
     try {
         const userId = req.session.user._id;
-        const habits = await Habit.find({ user: userId }).sort({ order: 1 });
+        const habits = await habitService.sortHabitByOrder(userId);
         console.log("habits:", habits);
         res.render('habits/index', { habits });
     } catch (error) {

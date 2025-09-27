@@ -24,8 +24,19 @@ async function updateHabit(habitId, updateData) {
     return await Habit.findByIdAndUpdate(habitId, updateData, { new: true });
 }
 
+async function updateOrder(i,userId,order) {
+     await Habit.updateOne(
+      { _id: order[i], user: userId },   // FIX di sini
+      { $set: { order: i } }
+    );
+}
+
 async function deleteHabit(habitId) {
     return await Habit.findByIdAndDelete(habitId);
+}
+
+async function sortHabitByOrder(userId){
+    return await Habit.find({ user: userId }).sort({ order: 1 });
 }
 
 export default {
@@ -34,7 +45,9 @@ export default {
     getHabitById,
     getAllHabits,
     updateHabit,
-    deleteHabit
+    deleteHabit,
+    updateOrder,
+    sortHabitByOrder
 }   
 
 

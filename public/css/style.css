@@ -4,11 +4,18 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+}
+
+
 body {
   font-family: Arial, sans-serif;
   background: #f8f9fa;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
@@ -35,6 +42,7 @@ header {
 }
 
 main {
+  flex: 1;
   padding: 2rem;
 }
 
@@ -82,6 +90,13 @@ button {
 
 button:hover {
   background: #2980b9;
+}
+
+footer {
+  background: #04724D;
+  color: white;
+  text-align: center;
+  padding: 1rem;
 }
 
 .error {

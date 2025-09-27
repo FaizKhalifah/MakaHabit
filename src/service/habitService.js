@@ -1,6 +1,5 @@
 import { name } from "ejs";
 import habitRepositories from "../repositories/habitRepositories.js";
-import Habit from "../models/habit.js";
 
 async function createHabit(userId, data) {
     if(!data.title || !data.frequency) {
@@ -70,7 +69,7 @@ async function archiveHabit(userId, habitId) {
     throw new Error("Habit not found");
   }
 
-  if (habit.userId.toString() !== userId.toString()) {
+  if (habit.user._id.toString() !== userId.toString()) {
     throw new Error("Unauthorized to archive this habit");
   }
 
@@ -81,11 +80,13 @@ async function archiveHabit(userId, habitId) {
 async function reorderHabits(userId, order) {
   console.log("masuk ke reorder service");
   for (let i = 0; i < order.length; i++) {
-    await Habit.updateOne(
-      { _id: order[i], user: userId },   // FIX di sini
-      { $set: { order: i } }
-    );
+    await habitRepositories.updateOrder(i,userId, order);
   }
+}
+
+async function sortHabitByOrder(userId){
+    const sortedHabits = await habitRepositories.sortHabitByOrder(userId);
+    return sortedHabits;
 }
 
 
@@ -97,5 +98,6 @@ export default {
     getHabitsByUser,
     getHabitbyId,
     archiveHabit,
-    reorderHabits
+    reorderHabits,
+    sortHabitByOrder
 }
