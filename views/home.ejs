@@ -1,2 +1,45 @@
-<% layout('../views/layouts/main') %>
-<h1>Ini halaman home</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to MyHabit</title>
+  <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+  <header class="hero">
+    <nav class="navbar">
+      <h1>MyHabit</h1>
+      <ul>
+        <li><a href="/auth/login">Login</a></li>
+        <li><a href="/auth/register">Sign Up</a></li>
+      </ul>
+    </nav>
+    <div class="hero-content">
+      <h2>Build Better Habits, Every Day</h2>
+      <p>Track your daily routines, stay consistent, and achieve your goals with MyHabit.</p>
+      <a href="/auth/register" class="cta-btn">Get Started</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="features">
+      <div class="feature">
+        <h3>📊 Track Progress</h3>
+        <p>Visualize your habits with simple dashboards and weekly stats.</p>
+      </div>
+      <div class="feature">
+        <h3>⏰ Stay Consistent</h3>
+        <p>Daily reminders and flexible scheduling keep you on track.</p>
+      </div>
+      <div class="feature">
+        <h3>🎯 Reach Your Goals</h3>
+        <p>Turn small steps into big achievements with smart habit tracking.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <%= new Date().getFullYear() %> MyHabit. All rights reserved.</p>
+  </footer>
+</body>
+</html>
