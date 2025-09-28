@@ -8,7 +8,7 @@ import express from "express";
 const indexRouter = express.Router();
 
 
-indexRouter.get('/', authMiddleware.isAuthenticated,(req, res) => {
+indexRouter.get('/',(req, res) => {
     res.render('home');
 });
 indexRouter.use('/auth', authRouter);
