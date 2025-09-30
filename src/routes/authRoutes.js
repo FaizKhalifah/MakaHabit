@@ -8,5 +8,6 @@ authRouter.post('/register', authController.register);
 authRouter.post('/login', authController.login);
 authRouter.get('/register', authController.getRegisterPage);
 authRouter.get('/login', authController.getLoginPage);
+authRouter.get('/logout',authController.logout);
 
 export default authRouter;
