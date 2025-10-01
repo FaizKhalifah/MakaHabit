@@ -12,7 +12,7 @@ async function register(req, res) {
         req.session.user = user;
         req.session.token = token;
         console.log("Session setelah login:", req.session);
-        res.redirect('/');
+        res.redirect('/habits');
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -26,7 +26,7 @@ async function login(req, res) {
         req.session.user = user;
         req.session.token = token;
         console.log("Session setelah login:", req.session);
-        res.redirect('/');
+        res.redirect('/habits');
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -41,7 +41,7 @@ function logout(req, res) {
         if (err) {
             return res.status(500).json({ error: 'Logout failed' });
         }
-        res.redirect('/login');
+        res.redirect('login');
     });
 }
 
