@@ -12,7 +12,7 @@ async function register(req, res) {
         req.session.user = user;
         req.session.token = token;
         console.log("Session setelah login:", req.session);
-        res.redirect('/');
+        res.redirect('/habits');
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -26,7 +26,7 @@ async function login(req, res) {
         req.session.user = user;
         req.session.token = token;
         console.log("Session setelah login:", req.session);
-        res.redirect('/');
+        res.redirect('/habits');
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -36,9 +36,19 @@ async function getLoginPage(req, res) {
     res.render('auth/login');
 }
 
+function logout(req, res) {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({ error: 'Logout failed' });
+        }
+        res.redirect('login');
+    });
+}
+
 export default {
     register,
     login,
     getRegisterPage,
-    getLoginPage
+    getLoginPage,
+    logout
 }
