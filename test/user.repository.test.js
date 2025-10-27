@@ -3,73 +3,73 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import userRepositories from "../src/repositories/userRepositories.js";
 import User from "../src/models/user.js";
 
-let mongoServer;
+// Mock model Mongoose
+jest.mock("../src/models/user.js");
 
-beforeAll(async () => {
-  mongoServer = await MongoMemoryServer.create();
-  await mongoose.connect(mongoServer.getUri(), {});
-});
+describe("User Repository (Mocked Mongoose)", () => {
 
-afterAll(async () => {
-  await mongoose.disconnect();
-  await mongoServer.stop();
-});
-
-beforeEach(async () => {
-  await User.deleteMany(); // kosongkan koleksi sebelum tiap test
-});
-
-describe("User Repository", () => {
-  it("should create a new user", async () => {
-    const userData = { username: "faiz", email:"faizganteng13@gmail.com",password: "secret" };
-    const user = await userRepositories.createUser(userData);
-
-    expect(user).toHaveProperty("_id");
-    expect(user.username).toBe("faiz");
-    expect(user.email).toBe("faizganteng13@gmail.com");
+  beforeEach(() => {
+    jest.clearAllMocks(); // reset mock antar test
   });
 
-  it("should get all users", async () => {
-    await userRepositories.createUser({ username: "a", email:"firstemail@gmail.com",password: "1" });
-    await userRepositories.createUser({ username: "b", email:"secondemail@gmail.com", password: "2" });
+  test("createUser should create and save a new user", async () => {
+    const mockUserData = { username: "faiz", password: "12345" };
+    const mockSavedUser = { _id: "1", ...mockUserData };
 
-    const users = await userRepositories.getAllUsers();
-    expect(users.length).toBe(2);
+    // Mock behavior dari constructor dan .save()
+    User.mockImplementation(() => ({
+      save: jest.fn().mockResolvedValue(mockSavedUser)
+    }));
+
+    const result = await userRepositories.createUser(mockUserData);
+    expect(result).toEqual(mockSavedUser);
   });
 
-  it("should get user by ID", async () => {
-    const newUser = await userRepositories.createUser({
-      username: "findme",
-      email:"findme@gmail.com",
-      password: "123",
-    });
+  test("getAllUsers should return all users", async () => {
+    const mockUsers = [
+      { _id: "1", username: "faiz" },
+      { _id: "2", username: "khalifah" }
+    ];
+    User.find.mockResolvedValue(mockUsers);
 
-    const foundUser = await userRepositories.getUserById(newUser._id);
-    expect(foundUser.username).toBe("findme");
+    const result = await userRepositories.getAllUsers();
+    expect(result).toEqual(mockUsers);
+    expect(User.find).toHaveBeenCalledTimes(1);
   });
 
-  it("should find user by username", async () => {
-    await userRepositories.createUser({ username: "lookup",email:"lookup@gmail.com", password: "abc" });
+  test("getUserById should return a user by ID", async () => {
+    const mockUser = { _id: "123", username: "faiz" };
+    User.findById.mockResolvedValue(mockUser);
 
-    const user = await userRepositories.findByUsername("lookup");
-    expect(user).not.toBeNull();
-    expect(user.username).toBe("lookup");
+    const result = await userRepositories.getUserById("123");
+    expect(result).toEqual(mockUser);
+    expect(User.findById).toHaveBeenCalledWith("123");
   });
 
-  it("should update a user", async () => {
-    const user = await userRepositories.createUser({ username: "update", email:"updateemail@gmail.com",password: "1" });
+  test("findByUsername should return user with specific username", async () => {
+    const mockUser = { _id: "456", username: "faiz" };
+    User.findOne.mockResolvedValue(mockUser);
 
-    const updated = await userRepositories.updateUser(user._id, { username: "AfterUpdate" });
-
-    expect(updated.username).toBe("AfterUpdate");
+    const result = await userRepositories.findByUsername("faiz");
+    expect(result).toEqual(mockUser);
+    expect(User.findOne).toHaveBeenCalledWith({ username: "faiz" });
   });
 
-  it("should delete a user", async () => {
-    const user = await userRepositories.createUser({ username: "delete", email:"deletedemail@gmail.com",password: "xyz" });
+  test("updateUser should update a user and return new data", async () => {
+    const mockUpdatedUser = { _id: "1", username: "faiz", password: "newpass" };
+    User.findByIdAndUpdate.mockResolvedValue(mockUpdatedUser);
 
-    await userRepositories.deleteUser(user._id);
+    const result = await userRepositories.updateUser("1", { password: "newpass" });
+    expect(result).toEqual(mockUpdatedUser);
+    expect(User.findByIdAndUpdate).toHaveBeenCalledWith("1", { password: "newpass" }, { new: true });
+  });
 
-    const found = await User.findById(user._id);
-    expect(found).toBeNull();
+  test("deleteUser should delete a user by ID", async () => {
+    const mockDeletedUser = { _id: "1", username: "faiz" };
+    User.findByIdAndDelete.mockResolvedValue(mockDeletedUser);
+
+    const result = await userRepositories.deleteUser("1");
+    expect(result).toEqual(mockDeletedUser);
+    expect(User.findByIdAndDelete).toHaveBeenCalledWith("1");
   });
 });
